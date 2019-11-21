@@ -1,4 +1,7 @@
 GITHUB PAGES LINK: https://ucsb-cs56-f19.github.io/lab07-maxcolbert/
+HEROKU APP LINK: https://lab07-maxcolbert.herokuapp.com/
+
+
 
 A simple Spring Boot webapp using:
 * Thymeleaf templating
