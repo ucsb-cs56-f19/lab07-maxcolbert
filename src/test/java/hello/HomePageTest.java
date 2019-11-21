@@ -90,9 +90,6 @@ public class HomePageTest {
     @Test
     @WithMockUser
     public void getPage1_hasCorrectHeader() throws Exception {
-        // mvc.perform(MockMvcRequestBuilders.get("/login").accept(MediaType.TEXT_HTML))
-        //         .andExpect(status().isOk())
-        //         .andExpect(xpath(BootstrapLiterals.bootstrapCSSXpath).exists());
         mvc.perform(MockMvcRequestBuilders.get("/page1")
             .with(authentication(OAuthUtils.getOauthAuthenticationFor(principal)))
             .accept(MediaType.TEXT_HTML))
