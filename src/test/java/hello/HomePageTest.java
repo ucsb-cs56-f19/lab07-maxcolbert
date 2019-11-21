@@ -19,6 +19,12 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.junit.Before;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
+
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(WebController.class)
 public class HomePageTest {
@@ -31,6 +37,16 @@ public class HomePageTest {
 
     @MockBean
     private ClientRegistrationRepository crr;
+
+    private OAuth2User principal;
+
+    /**
+     * Set up an OAuth mock user so that we can unit test protected endpoints
+     */
+    @Before
+    public void setUpUser() {
+        principal = OAuthUtils.createOAuth2User("Chris Gaucho", "cgaucho@example.com");
+    }
 
     @Test
     public void getHomePage_ContentType() throws Exception {
@@ -71,5 +87,19 @@ public class HomePageTest {
                 .andExpect(xpath("/html/body/div/nav/a").string("lab07"));
     }
 
+    @Test
+    @WithMockUser
+    public void getPage1_hasCorrectHeader() throws Exception {
+        // mvc.perform(MockMvcRequestBuilders.get("/login").accept(MediaType.TEXT_HTML))
+        //         .andExpect(status().isOk())
+        //         .andExpect(xpath(BootstrapLiterals.bootstrapCSSXpath).exists());
+        mvc.perform(MockMvcRequestBuilders.get("/page1")
+            .with(authentication(OAuthUtils.getOauthAuthenticationFor(principal)))
+            .accept(MediaType.TEXT_HTML))
+            .andExpect(status().isOk())
+            .andExpect(xpath("/html/body/div/h1").exists())
+            .andExpect(xpath("/html/body/div/h1").string("Earthquakes"));
+    }
 
 }
+
