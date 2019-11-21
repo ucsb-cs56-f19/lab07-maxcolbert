@@ -30,7 +30,8 @@ public class WebController {
         Map<String, String> urls = new HashMap<>();
 
         // get around an unfortunate limitation of the API
-        @SuppressWarnings("unchecked") Iterable<ClientRegistration> iterable = ((Iterable<ClientRegistration>) clientRegistrationRepository);
+        @SuppressWarnings("unchecked")
+        Iterable<ClientRegistration> iterable = ((Iterable<ClientRegistration>) clientRegistrationRepository);
         iterable.forEach(clientRegistration -> urls.put(clientRegistration.getClientName(),
                 "/oauth2/authorization/" + clientRegistration.getRegistrationId()));
 
@@ -55,7 +56,7 @@ public class WebController {
             EqSearch eqSearch) {
         return "earthquakes/search";
     }
-    
+
     @GetMapping("/earthquakes/results")
     public String getEarthquakesResults(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken,
             EqSearch eqSearch) {
@@ -66,9 +67,6 @@ public class WebController {
         model.addAttribute("eqSearch", eqSearch);
         String json = e.getJSON(eqSearch.getDistance(), eqSearch.getMinmag());
         model.addAttribute("json", json);
-        FeatureCollection featureCollection = FeatureCollection.fromJSON(json);
-        model.addAttribute("featureCollection",featureCollection);
         return "earthquakes/results";
     }
-
 }
