@@ -102,8 +102,8 @@ public class HomePageTest {
     public void getNavigation_hasUsers() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
-                .andExpect(xpath("/html/body/div/nav/div/ul[0]/li[2]/a").exists())
-                .andExpect(xpath("/html/body/div/nav/div/ul[0]/li[2]/a/@href").string("/users"));
+                .andExpect(xpath("/html/body/div/nav").exists()) // /div/ul[0]/li[2]/a
+                .andExpect(xpath("/html/body/div/nav").string("/users"));  // /div/ul[0]/li[2]/a/@href
     }
 
 }
