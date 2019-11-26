@@ -98,5 +98,13 @@ public class HomePageTest {
             .andExpect(xpath("/html/body/div/h1").string("Earthquakes"));
     }
 
+    @Test
+    public void getNavigation_hasUsers() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
+                .andExpect(status().isOk())
+                .andExpect(xpath("/html/body/div/nav/div/ul[0]/li[2]/a").exists())
+                .andExpect(xpath("/html/body/div/nav/div/ul[0]/li[2]/a/@href").string("/users"));
+    }
+
 }
 
