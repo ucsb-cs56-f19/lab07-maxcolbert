@@ -1,6 +1,8 @@
 GITHUB PAGES LINK: https://ucsb-cs56-f19.github.io/lab07-maxcolbert/
+
 HEROKU APP LINK: https://lab07-maxcolbert.herokuapp.com/
 
+TRAVIC CI LINK: https://travis-ci.org/ucsb-cs56-f19/lab07-maxcolbert
 
 
 A simple Spring Boot webapp using:
